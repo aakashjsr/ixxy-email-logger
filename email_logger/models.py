@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 
 from django.db import models
 
@@ -14,17 +15,18 @@ class EmailLog(models.Model):
     created = models.DateTimeField(default=datetime.now)
     headers = models.TextField(blank=True)
 
-def log_mail(label, subject, text, sender, recipients, html='', cc=[], bcc=[], headers={}):
-    email_log = EmailLog(
-        label = label, 
-        subject = subject, 
-        sender = sender, 
-        recipients = ','.join(recipients), 
-        text = text, 
-        html = html, 
-        cc = ','.join(cc), 
-        bcc = ','.join(bcc), 
-        headers = unicode(headers), 
-    )
-    email_log.save()
+
+def log_emails(label, emails):
+    for email in emails:
+        EmailLog.objects.create(
+            label=label,
+            subject=email.subject,
+            sender=email.from_email,
+            recipients=', '.join(email.to),
+            text=email.body,
+            html=email.alternatives[0], # TODO handle multiple alternatives?
+            cc=','.join(email.cc),
+            bcc=','.join(email.bcc),
+            headers=json.dumps(email.extra_headers),
+        )
 
