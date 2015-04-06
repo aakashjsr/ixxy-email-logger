@@ -24,7 +24,7 @@ def log_emails(label, emails):
             sender=email.from_email,
             recipients=', '.join(email.to),
             text=email.body,
-            html=getattr(email, 'alternatives', '') and email.alternatives[0], # TODO handle multiple alternatives?
+            html=getattr(email, 'alternatives', '') and email.alternatives[0][0], # TODO handle multiple alternatives?
             cc=','.join(email.cc),
             bcc=','.join(email.bcc),
             headers=json.dumps(email.extra_headers),
