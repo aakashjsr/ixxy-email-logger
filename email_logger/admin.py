@@ -2,7 +2,16 @@ from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.forms.widgets import Widget
-from django.utils.encoding import StrAndUnicode, force_unicode
+
+try:
+    from django.utils.encoding import StrAndUnicode
+except ImportError:
+    from django.utils.encoding import python_2_unicode_compatible
+
+    @python_2_unicode_compatible
+    class StrAndUnicode:
+        def __str__(self):
+            return self.code
 
 
 from email_logger.models import EmailLog
