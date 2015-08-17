@@ -14,9 +14,9 @@ except ImportError:
             return self.code
 
 
-from email_logger.models import EmailLog
+from .models import EmailLog
 
-html_script = '''
+html_script = """
 <script>$(function(){
     var $frame = $('<iframe style="width:960px; height:600px;">');
     $frame.insertAfter($('#email_logger_html'));
@@ -28,13 +28,17 @@ html_script = '''
     }, 1 );
 })
 </script>
-'''
+"""
+
+
 class HTMLWidget(Widget):
+    
     """
     Base class for all <input> widgets (except type='checkbox' and
     type='radio', which are special).
     """
-    input_type = None # Subclasses must define this.
+    
+    input_type = None  # Subclasses must define this.
 
     def render(self, name, value, attrs=None):
         if not value:
@@ -43,13 +47,17 @@ class HTMLWidget(Widget):
         
 
 class EmailLogAdminForm(forms.ModelForm):
+    
     class Meta:
         model = EmailLog
+        exclude = []
         widgets = {
             'html': HTMLWidget(),
         }
 
+
 class EmailLogAdmin(admin.ModelAdmin):
+    
     form = EmailLogAdminForm
     name = 'Tools and Settings'
     list_display = ('label', 'subject', 'sender', 'recipients', 'created')
