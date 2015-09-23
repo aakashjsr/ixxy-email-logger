@@ -63,6 +63,9 @@ class EmailLogAdmin(admin.ModelAdmin):
     list_display = ('label', 'subject', 'sender', 'recipients', 'created')
     search_fields = ('label', 'subject')
     
+    def has_add_permission(self, request):
+        return False
+
     def html(self, obj):
         return mark_safe(obj.html)
         
