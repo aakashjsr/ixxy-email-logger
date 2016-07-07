@@ -3,6 +3,14 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.forms.widgets import Widget
 
+# Use LongListFilterMixin if available
+# (Currently internal use only)
+try:
+    from cms.admin_mixins import LongListFilterMixin
+except ImportError:
+    class LongListFilterMixin(object):
+        pass
+
 try:
     from django.utils.encoding import StrAndUnicode
 except ImportError:
@@ -56,11 +64,12 @@ class EmailLogAdminForm(forms.ModelForm):
         }
 
 
-class EmailLogAdmin(admin.ModelAdmin):
+class EmailLogAdmin(LongListFilterMixin, admin.ModelAdmin):
     
     form = EmailLogAdminForm
     name = 'Tools and Settings'
     list_display = ('label', 'subject', 'sender', 'recipients', 'created')
+    list_filter = ('label', 'subject', 'sender', 'recipients', 'created')
     search_fields = ('label', 'subject')
     
     def has_add_permission(self, request):
