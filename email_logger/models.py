@@ -14,11 +14,13 @@ class EmailLog(models.Model):
     bcc = models.TextField(blank=True)
     created = models.DateTimeField(default=datetime.now)
     headers = models.TextField(blank=True)
+    success = models.BooleanField(default=True)
 
 
 def log_emails(label, emails):
+    email_logs = []
     for email in emails:
-        EmailLog.objects.create(
+        email_log = EmailLog.objects.create(
             label=label,
             subject=email.subject,
             sender=email.from_email,
@@ -29,4 +31,5 @@ def log_emails(label, emails):
             bcc=','.join(email.bcc),
             headers=json.dumps(email.extra_headers),
         )
-
+        email_logs.append(email_log)
+    return email_logs
