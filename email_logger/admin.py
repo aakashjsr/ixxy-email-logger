@@ -6,7 +6,7 @@ from django.forms.widgets import Widget
 # Use LongListFilterMixin if available
 # (Currently internal use only)
 try:
-    from cms.admin_mixins import LongListFilterMixin
+    from ixxy_admin_utils.admin_mixins import LongListFilterMixin
 except ImportError:
     class LongListFilterMixin(object):
         pass
