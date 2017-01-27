@@ -70,7 +70,7 @@ class EmailLogAdmin(LongListFilterMixin, admin.ModelAdmin):
     name = 'Tools and Settings'
     list_display = ('label', 'subject', 'sender', 'recipients', 'created', 'success')
     list_filter = ('label', 'subject', 'sender', 'recipients', 'created', 'success')
-    search_fields = ('label', 'subject')
+    search_fields = ('label', 'sender', 'recipients', 'subject', 'text', 'html')
     
     def has_add_permission(self, request):
         return False
