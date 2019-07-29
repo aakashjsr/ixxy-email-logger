@@ -50,8 +50,8 @@ class HTMLWidget(Widget):
 
     def render(self, name, value, attrs=None):
         if not value:
-            return mark_safe(u'<div style="margin-left: 7em; padding-left: 30px;"></div>')
-        return mark_safe(u'<div style="margin-left: 7em; padding-left: 30px;"><div id="email_logger_html">%s</div></div>%s' % (value, html_script))
+            return mark_safe('<div style="margin-left: 7em; padding-left: 30px;"></div>')
+        return mark_safe('<div style="margin-left: 7em; padding-left: 30px;"><div id="email_logger_html">%s</div></div>%s' % (value, html_script))
         
 
 class EmailLogAdminForm(forms.ModelForm):
