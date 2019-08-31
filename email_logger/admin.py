@@ -48,7 +48,7 @@ class HTMLWidget(Widget):
     
     input_type = None  # Subclasses must define this.
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         if not value:
             return mark_safe('<div style="margin-left: 7em; padding-left: 30px;"></div>')
         return mark_safe('<div style="margin-left: 7em; padding-left: 30px;"><div id="email_logger_html">%s</div></div>%s' % (value, html_script))
