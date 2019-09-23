@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 import json
 
 from django.db import models
@@ -12,7 +12,7 @@ class EmailLog(models.Model):
     html = models.TextField(blank=True)
     cc = models.TextField(blank=True)
     bcc = models.TextField(blank=True)
-    created = models.DateTimeField(default=datetime.now)
+    created = models.DateTimeField(default=timezone.now)
     headers = models.TextField(blank=True)
     success = models.BooleanField(default=True)
 
