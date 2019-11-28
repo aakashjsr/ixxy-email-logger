@@ -11,7 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         now = timezone.now()
         if getattr(settings, 'AUTO_DELETE_OLD_EMAILLOG_RENTATION_DAYS', None):
-            retention_time = settings.AUTO_DELETE_OLD_EMAILLOG_RENTATION_DAYS
+            retention_time = now - timedelta(days=settings.AUTO_DELETE_OLD_EMAILLOG_RENTATION_DAYS)
         else:
             two_years_ago = now - timedelta(days=365*2)
             retention_time = two_years_ago
