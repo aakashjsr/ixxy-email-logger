@@ -14,7 +14,7 @@ except ImportError:
 try:
     from django.utils.encoding import StrAndUnicode
 except ImportError:
-    from django.utils.encoding import python_2_unicode_compatible
+    from six import python_2_unicode_compatible
 
     @python_2_unicode_compatible
     class StrAndUnicode:
